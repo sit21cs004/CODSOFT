@@ -1,2 +1,2 @@
 # CODSOFT
-I have successfully completed my task "TO-DO LIST" using Python.
+I have successfully completed my all the 3 tasks using Python.
