@@ -1,0 +1,91 @@
+import os
+
+# Define a class to handle to-do tasks
+class ToDoList:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append({'task': task, 'completed': False})
+        print(f'Added: "{task}" to the list.')
+
+    def remove_task(self, task_index):
+        if 0 <= task_index < len(self.tasks):
+            removed = self.tasks.pop(task_index)
+            print(f'Removed: "{removed["task"]}" from the list.')
+        else:
+            print("Invalid task number.")
+
+    def update_task(self, task_index, new_task):
+        if 0 <= task_index < len(self.tasks):
+            self.tasks[task_index]['task'] = new_task
+            print(f'Updated task {task_index + 1}.')
+        else:
+            print("Invalid task number.")
+
+    def complete_task(self, task_index):
+        if 0 <= task_index < len(self.tasks):
+            self.tasks[task_index]['completed'] = True
+            print(f'Marked task {task_index + 1} as completed.')
+        else:
+            print("Invalid task number.")
+
+    def show_tasks(self):
+        if not self.tasks:
+            print("No tasks in the list.")
+        else:
+            print("\nTo-Do List:")
+            for idx, task in enumerate(self.tasks, start=1):
+                status = '✔' if task['completed'] else '✘'
+                print(f"{idx}. {task['task']} [{status}]")
+
+# Function to display menu
+def show_menu():
+    print("\nMenu:")
+    print("1. Add a task")
+    print("2. Update a task")
+    print("3. Mark task as completed")
+    print("4. Remove a task")
+    print("5. Show all tasks")
+    print("6. Exit")
+
+# Main application logic
+def main():
+    todo_list = ToDoList()
+
+    while True:
+        show_menu()
+        choice = input("\nChoose an option (1-6): ")
+
+        if choice == '1':
+            task = input("Enter a new task: ")
+            todo_list.add_task(task)
+
+        elif choice == '2':
+            todo_list.show_tasks()
+            task_number = int(input("Enter task number to update: ")) - 1
+            new_task = input("Enter new task description: ")
+            todo_list.update_task(task_number, new_task)
+
+        elif choice == '3':
+            todo_list.show_tasks()
+            task_number = int(input("Enter task number to mark as completed: ")) - 1
+            todo_list.complete_task(task_number)
+
+        elif choice == '4':
+            todo_list.show_tasks()
+            task_number = int(input("Enter task number to remove: ")) - 1
+            todo_list.remove_task(task_number)
+
+        elif choice == '5':
+            todo_list.show_tasks()
+
+        elif choice == '6':
+            print("Exiting the application. Goodbye!")
+            break
+
+        else:
+            print("Invalid choice, please try again.")
+
+if __name__ == '__main__':
+    main()
